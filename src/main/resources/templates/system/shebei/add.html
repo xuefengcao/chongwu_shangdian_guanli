@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<meta charset="utf-8">
+<head th:include="include :: header"></head>
+<body class="gray-bg">
+<div class="wrapper wrapper-content ">
+	<div class="row">
+		<div class="col-sm-12">
+			<div class="ibox float-e-margins">
+				<div class="ibox-content">
+					<form class="form-horizontal m-t" id="signupForm">
+						<input id="status" name="status" type="hidden" value="1">
+						<input id="type" name="type" type="hidden" value="2">
+						<div class="form-group">
+							<label class="col-sm-3 control-label">设备类型：</label>
+							<div class="col-sm-8">
+								<select name="leibieId" id="leibieId" class="form-control"  >
+									<option th:each="pets:${shebeitype}" th:value="${pets.id}"
+											th:text="${pets.name}"></option>
+								</select>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-3 control-label">购置日期：</label>
+							<div class="col-sm-8">
+								<input type="text" class="form-control" name="startTimeStr" placeholder="yyyy-MM-dd HH:mm:ss" id="goumaiTime"  autocomplete="off" >
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-3 control-label">型号：</label>
+							<div class="col-sm-8">
+								<input id="xinghao" name="xinghao" class="form-control" type="text">
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-3 control-label">制造商：</label>
+							<div class="col-sm-8">
+								<input id="zhizaoshang" name="zhizaoshang" class="form-control" type="text">
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-3 control-label">数量：</label>
+							<div class="col-sm-8">
+								<input id="num" name="num" class="form-control" type="number">
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-3 control-label">使用部门：</label>
+							<div class="col-sm-8">
+								<input id="bumenName" name="bumenName" class="form-control" type="text">
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-3 control-label">设备状况：</label>
+							<div class="col-sm-8">
+								<input id="shebeizhuangkuang" name="shebeizhuangkuang" class="form-control" type="text">
+							</div>
+						</div>
+
+
+
+
+						<div class="form-group">
+							<div class="col-sm-8 col-sm-offset-3">
+								<input type="button" class="btn btn-primary" onclick="save()" value="提交"/>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</div>
+<div th:include="include::footer"></div>
+<script type="text/javascript" src="/js/appjs/sys/shebei/add.js"></script>
+
+<script type="text/javascript" src="/layui/layui.js"></script>
+<script type="text/javascript" >
+    layui.use('laydate', function(){
+        var laydate = layui.laydate;
+        //日期时间范围
+        laydate.render({
+            elem: '#goumaiTime'
+            ,type: 'datetime'
+        });
+        laydate.render({
+            elem: '#jianchaEndTime'
+            ,type: 'datetime'
+        });
+    });
+</script>
+</body>
+</html>

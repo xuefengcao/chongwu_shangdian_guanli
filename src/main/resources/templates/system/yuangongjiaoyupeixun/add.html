@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<meta charset="utf-8">
+<head th:include="include :: header"></head>
+<body class="gray-bg">
+<div class="wrapper wrapper-content ">
+	<div class="row">
+		<div class="col-sm-12">
+			<div class="ibox float-e-margins">
+				<div class="ibox-content">
+					<form class="form-horizontal m-t" id="signupForm">
+						<input id="status" name="status" type="hidden" value="1">
+						<div class="form-group">
+							<label class="col-sm-3 control-label">培训员工姓名：</label>
+							<div class="col-sm-8">
+								<select name="userId" id="userId" class="form-control"  >
+									<option th:each="pets:${userdo}" th:value="${pets.userId}"
+											th:text="${pets.userId}+'----'+${pets.name}"></option>
+								</select>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-3 control-label">培训时间：</label>
+							<div class="col-sm-8">
+								<input type="text" class="form-control" name="startTimeStr" placeholder="yyyy-MM-dd HH:mm:ss" id="jianchaStartTime"  autocomplete="off" >
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-3 control-label">培训主题：</label>
+							<div class="col-sm-8">
+								<input id="title" name="title" class="form-control" type="text">
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label class="col-sm-3 control-label">培训类型：</label>
+							<div class="col-sm-8">
+								<select name="peixunTypeId" id="peixunTypeId" class="form-control"  >
+									<option th:each="pets:${peixuntype}" th:value="${pets.id}"
+											th:text="${pets.name}"></option>
+								</select>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-3 control-label">成绩：</label>
+							<div class="col-sm-8">
+								<input id="chengji" name="chengji" class="form-control" type="text">
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-3 control-label">考核评价：</label>
+							<div class="col-sm-8">
+								<input id="remark" name="remark" class="form-control" type="text">
+							</div>
+						</div>
+
+						<div class="form-group">
+							<div class="col-sm-8 col-sm-offset-3">
+								<input type="button" class="btn btn-primary" onclick="save()" value="提交"/>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</div>
+<div th:include="include::footer"></div>
+<script type="text/javascript" src="/js/appjs/sys/yuangongjiaoyupeixun/add.js"></script>
+
+<script type="text/javascript" src="/layui/layui.js"></script>
+<script type="text/javascript" >
+    layui.use('laydate', function(){
+        var laydate = layui.laydate;
+        //日期时间范围
+        laydate.render({
+            elem: '#jianchaStartTime'
+            ,type: 'datetime'
+        });
+        laydate.render({
+            elem: '#jianchaEndTime'
+            ,type: 'datetime'
+        });
+    });
+</script>
+</body>
+</html>

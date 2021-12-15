@@ -1,0 +1,320 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.system.mapper.WeihuapinInfoMapper">
+  <resultMap id="BaseResultMap" type="com.system.domain.WeihuapinInfo">
+    <constructor>
+      <idArg column="id" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="name" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="num" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="danwei" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="save_method" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="save_site" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="user_id" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="user_name" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="create_time" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+      <arg column="com_in_time" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+      <arg column="com_out_time" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+      <arg column="remark" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="type" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="flag" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="chuzhi" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="status" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="shiyong_user_id" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="shiyong_user_name" javaType="java.lang.String" jdbcType="VARCHAR" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, name, num, danwei, save_method, save_site, user_id, user_name, create_time, com_in_time,
+    com_out_time, remark, type, flag, chuzhi, status, shiyong_user_id, shiyong_user_name
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultType="com.system.domain.WeihuapinInfo">
+    SELECT
+      id,
+      NAME,
+      num,
+      danwei,
+      save_method,
+      save_site,
+      user_id,
+      ( SELECT a.NAME FROM sys_user a WHERE a.user_id = c.user_id ) user_name,
+      create_time,
+      com_in_time,
+      DATE_FORMAT( com_in_time, "%Y-%m-%d %H:%i:%s" ) startTimeStr,
+      com_out_time,
+      remark,
+      type,
+      flag,
+      chuzhi,
+      STATUS,
+      shiyong_user_id,
+      ( SELECT a.NAME FROM sys_user a WHERE a.user_id = c.shiyong_user_id ) shiyong_user_name
+    FROM
+    weihuapin_info c
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from weihuapin_info
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.system.domain.WeihuapinInfo">
+    insert into weihuapin_info (id, name, num,
+      danwei, save_method, save_site,
+      user_id, user_name, create_time,
+      com_in_time, com_out_time, remark,
+      type, flag, chuzhi,
+      status, shiyong_user_id, shiyong_user_name
+      )
+    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{num,jdbcType=INTEGER},
+      #{danwei,jdbcType=VARCHAR}, #{saveMethod,jdbcType=VARCHAR}, #{saveSite,jdbcType=VARCHAR},
+      #{userId,jdbcType=INTEGER}, #{userName,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP},
+      #{comInTime,jdbcType=TIMESTAMP}, #{comOutTime,jdbcType=TIMESTAMP}, #{remark,jdbcType=VARCHAR},
+      #{type,jdbcType=VARCHAR}, #{flag,jdbcType=VARCHAR}, #{chuzhi,jdbcType=VARCHAR},
+      #{status,jdbcType=VARCHAR}, #{shiyongUserId,jdbcType=INTEGER}, #{shiyongUserName,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.system.domain.WeihuapinInfo">
+    insert into weihuapin_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="num != null">
+        num,
+      </if>
+      <if test="danwei != null">
+        danwei,
+      </if>
+      <if test="saveMethod != null">
+        save_method,
+      </if>
+      <if test="saveSite != null">
+        save_site,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="userName != null">
+        user_name,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="comInTime != null">
+        com_in_time,
+      </if>
+      <if test="comOutTime != null">
+        com_out_time,
+      </if>
+      <if test="remark != null">
+        remark,
+      </if>
+      <if test="type != null">
+        type,
+      </if>
+      <if test="flag != null">
+        flag,
+      </if>
+      <if test="chuzhi != null">
+        chuzhi,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="shiyongUserId != null">
+        shiyong_user_id,
+      </if>
+      <if test="shiyongUserName != null">
+        shiyong_user_name,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="num != null">
+        #{num,jdbcType=INTEGER},
+      </if>
+      <if test="danwei != null">
+        #{danwei,jdbcType=VARCHAR},
+      </if>
+      <if test="saveMethod != null">
+        #{saveMethod,jdbcType=VARCHAR},
+      </if>
+      <if test="saveSite != null">
+        #{saveSite,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="userName != null">
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="comInTime != null">
+        #{comInTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="comOutTime != null">
+        #{comOutTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="flag != null">
+        #{flag,jdbcType=VARCHAR},
+      </if>
+      <if test="chuzhi != null">
+        #{chuzhi,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="shiyongUserId != null">
+        #{shiyongUserId,jdbcType=INTEGER},
+      </if>
+      <if test="shiyongUserName != null">
+        #{shiyongUserName,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.system.domain.WeihuapinInfo">
+    update weihuapin_info
+    <set>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="num != null">
+        num = #{num,jdbcType=INTEGER},
+      </if>
+      <if test="danwei != null">
+        danwei = #{danwei,jdbcType=VARCHAR},
+      </if>
+      <if test="saveMethod != null">
+        save_method = #{saveMethod,jdbcType=VARCHAR},
+      </if>
+      <if test="saveSite != null">
+        save_site = #{saveSite,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="userName != null">
+        user_name = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="comInTime != null">
+        com_in_time = #{comInTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="comOutTime != null">
+        com_out_time = #{comOutTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        type = #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="flag != null">
+        flag = #{flag,jdbcType=VARCHAR},
+      </if>
+      <if test="chuzhi != null">
+        chuzhi = #{chuzhi,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="shiyongUserId != null">
+        shiyong_user_id = #{shiyongUserId,jdbcType=INTEGER},
+      </if>
+      <if test="shiyongUserName != null">
+        shiyong_user_name = #{shiyongUserName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.system.domain.WeihuapinInfo">
+    update weihuapin_info
+    set name = #{name,jdbcType=VARCHAR},
+      num = #{num,jdbcType=INTEGER},
+      danwei = #{danwei,jdbcType=VARCHAR},
+      save_method = #{saveMethod,jdbcType=VARCHAR},
+      save_site = #{saveSite,jdbcType=VARCHAR},
+      user_id = #{userId,jdbcType=INTEGER},
+      user_name = #{userName,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      com_in_time = #{comInTime,jdbcType=TIMESTAMP},
+      com_out_time = #{comOutTime,jdbcType=TIMESTAMP},
+      remark = #{remark,jdbcType=VARCHAR},
+      type = #{type,jdbcType=VARCHAR},
+      flag = #{flag,jdbcType=VARCHAR},
+      chuzhi = #{chuzhi,jdbcType=VARCHAR},
+      status = #{status,jdbcType=VARCHAR},
+      shiyong_user_id = #{shiyongUserId,jdbcType=INTEGER},
+      shiyong_user_name = #{shiyongUserName,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <select id="list" resultType="com.system.domain.WeihuapinInfo">
+    SELECT
+      id,
+      NAME,
+      num,
+      danwei,
+      save_method,
+      save_site,
+      user_id,
+      ( SELECT a.NAME FROM sys_user a WHERE a.user_id = c.user_id ) user_name,
+      create_time,
+      com_in_time,
+      DATE_FORMAT( com_in_time, "%Y-%m-%d %H:%i:%s" ) startTimeStr,
+      com_out_time,
+      remark,
+      type,
+      flag,
+      chuzhi,
+      STATUS,
+      shiyong_user_id,
+      ( SELECT a.NAME FROM sys_user a WHERE a.user_id = c.shiyong_user_id ) shiyong_user_name
+    FROM
+    weihuapin_info c
+    <where>
+      <if test="name != null and name != ''"> and name like concat('%',#{name},'%') </if>
+      <if test="flag != null and flag != ''"> and flag = #{flag} </if>
+      <if test="type != null and type != ''"> and type = #{type} </if>
+      <if test="status != null and status != ''"> and status = #{status} </if>
+    </where>
+    <choose>
+      <when test="sort != null and sort.trim() != ''">
+        order by ${sort} ${order}
+      </when>
+      <otherwise>
+        order by create_time desc
+      </otherwise>
+    </choose>
+    <if test="offset != null and limit != null">
+      limit #{offset}, #{limit}
+    </if>
+  </select>
+
+  <select id="count" resultType="int">
+    select count(*) from weihuapin_info
+    <where>
+      <if test="name != null and name != ''"> and name like concat('%',#{name},'%') </if>
+      <if test="flag != null and flag != ''"> and flag = #{flag} </if>
+      <if test="type != null and type != ''"> and type = #{type} </if>
+      <if test="status != null and status != ''"> and status = #{status} </if>
+    </where>
+  </select>
+</mapper>

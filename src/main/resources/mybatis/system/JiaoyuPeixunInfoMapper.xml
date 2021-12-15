@@ -1,0 +1,265 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.system.mapper.JiaoyuPeixunInfoMapper">
+  <resultMap id="BaseResultMap" type="com.system.domain.JiaoyuPeixunInfo">
+    <constructor>
+      <idArg column="id" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="title" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="serial_number" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="peixun_type_id" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="peixun_type" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="peixun_time" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+      <arg column="remark" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="flag" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="type" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="status" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="create_time" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+      <arg column="addr" javaType="java.lang.String" jdbcType="VARCHAR" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, title, serial_number, peixun_type_id, peixun_type, peixun_time, remark, flag,
+    type, status, create_time, addr
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultType="com.system.domain.JiaoyuPeixunInfo">
+    SELECT
+      id,
+      title,
+      serial_number,
+      peixun_type_id,
+      ( SELECT a.NAME FROM type_info a WHERE a.id = c.peixun_type_id ) peixun_type,
+      peixun_time,
+      DATE_FORMAT( peixun_time, "%Y-%m-%d %H:%i:%s" ) startTimeStr,
+      remark,
+      flag,
+      type,
+      STATUS,
+      create_time,
+      addr
+    FROM
+    jiaoyu_peixun_info c
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from jiaoyu_peixun_info
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.system.domain.JiaoyuPeixunInfo">
+    insert into jiaoyu_peixun_info (id, title, serial_number,
+      peixun_type_id, peixun_type, peixun_time,
+      remark, flag, type,
+      status, create_time, addr
+      )
+    values (#{id,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, #{serialNumber,jdbcType=INTEGER},
+      #{peixunTypeId,jdbcType=INTEGER}, #{peixunType,jdbcType=VARCHAR}, #{peixunTime,jdbcType=TIMESTAMP},
+      #{remark,jdbcType=VARCHAR}, #{flag,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR},
+      #{status,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{addr,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.system.domain.JiaoyuPeixunInfo">
+    insert into jiaoyu_peixun_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="title != null">
+        title,
+      </if>
+      <if test="serialNumber != null">
+        serial_number,
+      </if>
+      <if test="peixunTypeId != null">
+        peixun_type_id,
+      </if>
+      <if test="peixunType != null">
+        peixun_type,
+      </if>
+      <if test="peixunTime != null">
+        peixun_time,
+      </if>
+      <if test="remark != null">
+        remark,
+      </if>
+      <if test="flag != null">
+        flag,
+      </if>
+      <if test="type != null">
+        type,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="addr != null">
+        addr,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="title != null">
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="serialNumber != null">
+        #{serialNumber,jdbcType=INTEGER},
+      </if>
+      <if test="peixunTypeId != null">
+        #{peixunTypeId,jdbcType=INTEGER},
+      </if>
+      <if test="peixunType != null">
+        #{peixunType,jdbcType=VARCHAR},
+      </if>
+      <if test="peixunTime != null">
+        #{peixunTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="flag != null">
+        #{flag,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="addr != null">
+        #{addr,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.system.domain.JiaoyuPeixunInfo">
+    update jiaoyu_peixun_info
+    <set>
+      <if test="title != null">
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="serialNumber != null">
+        serial_number = #{serialNumber,jdbcType=INTEGER},
+      </if>
+      <if test="peixunTypeId != null">
+        peixun_type_id = #{peixunTypeId,jdbcType=INTEGER},
+      </if>
+      <if test="peixunType != null">
+        peixun_type = #{peixunType,jdbcType=VARCHAR},
+      </if>
+      <if test="peixunTime != null">
+        peixun_time = #{peixunTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="flag != null">
+        flag = #{flag,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        type = #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="addr != null">
+        addr = #{addr,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.system.domain.JiaoyuPeixunInfo">
+    update jiaoyu_peixun_info
+    set title = #{title,jdbcType=VARCHAR},
+      serial_number = #{serialNumber,jdbcType=INTEGER},
+      peixun_type_id = #{peixunTypeId,jdbcType=INTEGER},
+      peixun_type = #{peixunType,jdbcType=VARCHAR},
+      peixun_time = #{peixunTime,jdbcType=TIMESTAMP},
+      remark = #{remark,jdbcType=VARCHAR},
+      flag = #{flag,jdbcType=VARCHAR},
+      type = #{type,jdbcType=VARCHAR},
+      status = #{status,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      addr = #{addr,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <select id="list" resultType="com.system.domain.JiaoyuPeixunInfo">
+    SELECT
+      id,
+      title,
+      serial_number,
+      peixun_type_id,
+      ( SELECT a.NAME FROM type_info a WHERE a.id = c.peixun_type_id ) peixun_type,
+      peixun_time,
+      DATE_FORMAT( peixun_time, "%Y-%m-%d %H:%i:%s" ) startTimeStr,
+      remark,
+      flag,
+      type,
+      STATUS,
+      create_time,
+      addr
+    FROM
+    jiaoyu_peixun_info c
+    <where>
+      <if test="userId != null and userId != ''"> and user_id = #{userId} </if>
+      <if test="title != null and title != ''"> and title like concat('%',#{title},'%') </if>
+      <if test="flag != null and flag != ''"> and flag = #{flag} </if>
+      <if test="type != null and type != ''"> and type = #{type} </if>
+      <if test="status != null and status != ''"> and status = #{status} </if>
+    </where>
+    <choose>
+      <when test="sort != null and sort.trim() != ''">
+        order by ${sort} ${order}
+      </when>
+      <otherwise>
+        order by create_time desc
+      </otherwise>
+    </choose>
+    <if test="offset != null and limit != null">
+      limit #{offset}, #{limit}
+    </if>
+  </select>
+
+  <select id="count" resultType="int">
+    select count(*) from jiaoyu_peixun_info
+    <where>
+      <if test="userId != null and userId != ''"> and user_id = #{userId} </if>
+      <if test="userName != null and userName != ''"> and user_name like concat('%',#{userName},'%') </if>
+      <if test="flag != null and flag != ''"> and flag = #{flag} </if>
+      <if test="type != null and type != ''"> and type = #{type} </if>
+      <if test="status != null and status != ''"> and status = #{status} </if>
+    </where>
+  </select>
+
+  <select id="findMonthJiaoyuPeixun" resultType="com.system.vo.PubOutVo" >
+     SELECT
+    DATE_FORMAT( days.DAY, '%Y-%m-%d' ) createTimeStr,
+    count( DATE_FORMAT( create_time, '%Y-%m-%d' ) ) num
+    FROM
+    (
+    SELECT
+     date_add( date_add(curdate()-day(curdate())+2,interval -1 month ),
+     INTERVAL ( cast( help_topic_id AS signed
+      ) - 1 ) DAY ) DAY
+    FROM
+     mysql.help_topic
+    WHERE
+     help_topic_id &lt;  (DATEDIFF(DATE_ADD(curdate(), INTERVAL - DAY(curdate())+ 1 DAY), date_add(curdate()- DAY(curdate())+ 1, INTERVAL -1 MONTH)))
+    ORDER BY
+     help_topic_id ) days
+    LEFT JOIN jiaoyu_peixun_info t1 ON date( days.DAY ) = date( t1.create_time )
+   where 1=1
+    GROUP BY
+    days.DAY,
+    DATE_FORMAT( t1.create_time, '%Y-%m-%d' );
+  </select>
+
+
+</mapper>

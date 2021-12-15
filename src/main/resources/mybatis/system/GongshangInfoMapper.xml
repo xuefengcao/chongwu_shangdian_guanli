@@ -1,0 +1,265 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.system.mapper.GongshangInfoMapper">
+  <resultMap id="BaseResultMap" type="com.system.domain.GongshangInfo">
+    <constructor>
+      <idArg column="id" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="user_id" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="user_name" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="shigu_type_id" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="shigu_type" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="serial_number" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="remark" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="details" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="canji_level_id" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="canji_level" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="flag" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="type" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="status" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="create_time" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+      <arg column="state_time" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, user_id, user_name, shigu_type_id, shigu_type, serial_number, remark, details,
+    canji_level_id, canji_level, flag, type, status, create_time, state_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from gongshang_info
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from gongshang_info
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.system.domain.GongshangInfo">
+    insert into gongshang_info (id, user_id, user_name,
+      shigu_type_id, shigu_type, serial_number,
+      remark, details, canji_level_id,
+      canji_level, flag, type,
+      status, create_time, state_time
+      )
+    values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{userName,jdbcType=VARCHAR},
+      #{shiguTypeId,jdbcType=INTEGER}, #{shiguType,jdbcType=VARCHAR}, #{serialNumber,jdbcType=INTEGER},
+      #{remark,jdbcType=VARCHAR}, #{details,jdbcType=VARCHAR}, #{canjiLevelId,jdbcType=INTEGER},
+      #{canjiLevel,jdbcType=VARCHAR}, #{flag,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR},
+      #{status,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{stateTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.system.domain.GongshangInfo">
+    insert into gongshang_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="userName != null">
+        user_name,
+      </if>
+      <if test="shiguTypeId != null">
+        shigu_type_id,
+      </if>
+      <if test="shiguType != null">
+        shigu_type,
+      </if>
+      <if test="serialNumber != null">
+        serial_number,
+      </if>
+      <if test="remark != null">
+        remark,
+      </if>
+      <if test="details != null">
+        details,
+      </if>
+      <if test="canjiLevelId != null">
+        canji_level_id,
+      </if>
+      <if test="canjiLevel != null">
+        canji_level,
+      </if>
+      <if test="flag != null">
+        flag,
+      </if>
+      <if test="type != null">
+        type,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="stateTime != null">
+        state_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="userName != null">
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="shiguTypeId != null">
+        #{shiguTypeId,jdbcType=INTEGER},
+      </if>
+      <if test="shiguType != null">
+        #{shiguType,jdbcType=VARCHAR},
+      </if>
+      <if test="serialNumber != null">
+        #{serialNumber,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="details != null">
+        #{details,jdbcType=VARCHAR},
+      </if>
+      <if test="canjiLevelId != null">
+        #{canjiLevelId,jdbcType=INTEGER},
+      </if>
+      <if test="canjiLevel != null">
+        #{canjiLevel,jdbcType=VARCHAR},
+      </if>
+      <if test="flag != null">
+        #{flag,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="stateTime != null">
+        #{stateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.system.domain.GongshangInfo">
+    update gongshang_info
+    <set>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="userName != null">
+        user_name = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="shiguTypeId != null">
+        shigu_type_id = #{shiguTypeId,jdbcType=INTEGER},
+      </if>
+      <if test="shiguType != null">
+        shigu_type = #{shiguType,jdbcType=VARCHAR},
+      </if>
+      <if test="serialNumber != null">
+        serial_number = #{serialNumber,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="details != null">
+        details = #{details,jdbcType=VARCHAR},
+      </if>
+      <if test="canjiLevelId != null">
+        canji_level_id = #{canjiLevelId,jdbcType=INTEGER},
+      </if>
+      <if test="canjiLevel != null">
+        canji_level = #{canjiLevel,jdbcType=VARCHAR},
+      </if>
+      <if test="flag != null">
+        flag = #{flag,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        type = #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="stateTime != null">
+        state_time = #{stateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.system.domain.GongshangInfo">
+    update gongshang_info
+    set user_id = #{userId,jdbcType=INTEGER},
+      user_name = #{userName,jdbcType=VARCHAR},
+      shigu_type_id = #{shiguTypeId,jdbcType=INTEGER},
+      shigu_type = #{shiguType,jdbcType=VARCHAR},
+      serial_number = #{serialNumber,jdbcType=INTEGER},
+      remark = #{remark,jdbcType=VARCHAR},
+      details = #{details,jdbcType=VARCHAR},
+      canji_level_id = #{canjiLevelId,jdbcType=INTEGER},
+      canji_level = #{canjiLevel,jdbcType=VARCHAR},
+      flag = #{flag,jdbcType=VARCHAR},
+      type = #{type,jdbcType=VARCHAR},
+      status = #{status,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      state_time = #{stateTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <select id="list" resultType="com.system.domain.GongshangInfo">
+    SELECT
+    id,
+    user_id,
+    ( SELECT a.NAME FROM sys_user a WHERE a.user_id = c.user_id ) user_name,
+    shigu_type_id,
+    ( SELECT a.NAME FROM type_info a WHERE a.id = c.shigu_type_id ) shigu_type,
+    serial_number,
+    remark,
+    details,
+    canji_level_id,
+    ( SELECT a.NAME FROM type_info a WHERE a.id = c.canji_level_id ) canji_level,
+    flag,
+    type,
+    STATUS,
+    create_time,
+    DATE_FORMAT( state_time, "%Y-%m-%d %H:%i:%s" ) startTimeStr,
+    state_time
+    FROM
+    gongshang_info c
+    <where>
+      <if test="userId != null and userId != ''"> and user_id = #{userId} </if>
+      <if test="userName != null and userName != ''"> and user_name like concat('%',#{userName},'%') </if>
+      <if test="flag != null and flag != ''"> and flag = #{flag} </if>
+      <if test="type != null and type != ''"> and type = #{type} </if>
+      <if test="status != null and status != ''"> and status = #{status} </if>
+    </where>
+    <choose>
+      <when test="sort != null and sort.trim() != ''">
+        order by ${sort} ${order}
+      </when>
+      <otherwise>
+        order by create_time desc
+      </otherwise>
+    </choose>
+    <if test="offset != null and limit != null">
+      limit #{offset}, #{limit}
+    </if>
+  </select>
+
+  <select id="count" resultType="int">
+    select count(*) from gongshang_info
+    <where>
+      <if test="userId != null and userId != ''"> and user_id = #{userId} </if>
+      <if test="userName != null and userName != ''"> and user_name like concat('%',#{userName},'%') </if>
+      <if test="flag != null and flag != ''"> and flag = #{flag} </if>
+      <if test="type != null and type != ''"> and type = #{type} </if>
+      <if test="status != null and status != ''"> and status = #{status} </if>
+    </where>
+  </select>
+</mapper>

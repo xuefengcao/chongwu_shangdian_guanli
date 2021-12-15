@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.system.mapper.ShiguLogMapper">
+  <resultMap id="BaseResultMap" type="com.system.domain.ShiguLog">
+    <constructor>
+      <idArg column="id" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="title" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="serial_number" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="start_time" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+      <arg column="addr" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="zhuchi_user_id" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="zhuchi_user_name" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="jilu_user_id" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="jilu_user_name" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="remark" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="flag" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="create_time" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+      <arg column="type" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="status" javaType="java.lang.String" jdbcType="VARCHAR" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, title, serial_number, start_time, addr, zhuchi_user_id, zhuchi_user_name, jilu_user_id, 
+    jilu_user_name, remark, flag, create_time, type, status
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from shigu_log
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from shigu_log
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.system.domain.ShiguLog">
+    insert into shigu_log (id, title, serial_number, 
+      start_time, addr, zhuchi_user_id, 
+      zhuchi_user_name, jilu_user_id, jilu_user_name, 
+      remark, flag, create_time, 
+      type, status)
+    values (#{id,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, #{serialNumber,jdbcType=INTEGER}, 
+      #{startTime,jdbcType=TIMESTAMP}, #{addr,jdbcType=VARCHAR}, #{zhuchiUserId,jdbcType=INTEGER}, 
+      #{zhuchiUserName,jdbcType=VARCHAR}, #{jiluUserId,jdbcType=INTEGER}, #{jiluUserName,jdbcType=VARCHAR}, 
+      #{remark,jdbcType=VARCHAR}, #{flag,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{type,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.system.domain.ShiguLog">
+    insert into shigu_log
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="title != null">
+        title,
+      </if>
+      <if test="serialNumber != null">
+        serial_number,
+      </if>
+      <if test="startTime != null">
+        start_time,
+      </if>
+      <if test="addr != null">
+        addr,
+      </if>
+      <if test="zhuchiUserId != null">
+        zhuchi_user_id,
+      </if>
+      <if test="zhuchiUserName != null">
+        zhuchi_user_name,
+      </if>
+      <if test="jiluUserId != null">
+        jilu_user_id,
+      </if>
+      <if test="jiluUserName != null">
+        jilu_user_name,
+      </if>
+      <if test="remark != null">
+        remark,
+      </if>
+      <if test="flag != null">
+        flag,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="type != null">
+        type,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="title != null">
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="serialNumber != null">
+        #{serialNumber,jdbcType=INTEGER},
+      </if>
+      <if test="startTime != null">
+        #{startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="addr != null">
+        #{addr,jdbcType=VARCHAR},
+      </if>
+      <if test="zhuchiUserId != null">
+        #{zhuchiUserId,jdbcType=INTEGER},
+      </if>
+      <if test="zhuchiUserName != null">
+        #{zhuchiUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="jiluUserId != null">
+        #{jiluUserId,jdbcType=INTEGER},
+      </if>
+      <if test="jiluUserName != null">
+        #{jiluUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="flag != null">
+        #{flag,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.system.domain.ShiguLog">
+    update shigu_log
+    <set>
+      <if test="title != null">
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="serialNumber != null">
+        serial_number = #{serialNumber,jdbcType=INTEGER},
+      </if>
+      <if test="startTime != null">
+        start_time = #{startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="addr != null">
+        addr = #{addr,jdbcType=VARCHAR},
+      </if>
+      <if test="zhuchiUserId != null">
+        zhuchi_user_id = #{zhuchiUserId,jdbcType=INTEGER},
+      </if>
+      <if test="zhuchiUserName != null">
+        zhuchi_user_name = #{zhuchiUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="jiluUserId != null">
+        jilu_user_id = #{jiluUserId,jdbcType=INTEGER},
+      </if>
+      <if test="jiluUserName != null">
+        jilu_user_name = #{jiluUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="flag != null">
+        flag = #{flag,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="type != null">
+        type = #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.system.domain.ShiguLog">
+    update shigu_log
+    set title = #{title,jdbcType=VARCHAR},
+      serial_number = #{serialNumber,jdbcType=INTEGER},
+      start_time = #{startTime,jdbcType=TIMESTAMP},
+      addr = #{addr,jdbcType=VARCHAR},
+      zhuchi_user_id = #{zhuchiUserId,jdbcType=INTEGER},
+      zhuchi_user_name = #{zhuchiUserName,jdbcType=VARCHAR},
+      jilu_user_id = #{jiluUserId,jdbcType=INTEGER},
+      jilu_user_name = #{jiluUserName,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      flag = #{flag,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      type = #{type,jdbcType=VARCHAR},
+      status = #{status,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <select id="list" resultType="com.system.domain.UserDO">
+    SELECT
+      id,
+      title,
+      serial_number,
+      start_time,
+      DATE_FORMAT( start_time, "%Y-%m-%d %H:%i:%s" ) startTimeStr,
+      addr,
+      zhuchi_user_id,
+    ( SELECT a.NAME FROM type_info a WHERE a.id = c.zhuchi_user_id ) zhuchi_user_name,
+      jilu_user_id,
+    ( SELECT a.NAME FROM type_info a WHERE a.id = c.jilu_user_id ) jilu_user_name,
+      remark,
+      flag,
+      create_time,
+      type,
+      STATUS
+    from shigu_log c
+    <where>
+      <if test="title != null and title != ''"> and title like concat('%',#{title},'%') </if>
+      <if test="flag != null and flag != ''"> and flag = #{flag} </if>
+      <if test="type != null and type != ''"> and type = #{type} </if>
+      <if test="status != null and status != ''"> and status = #{status} </if>
+    </where>
+    <choose>
+      <when test="sort != null and sort.trim() != ''">
+        order by ${sort} ${order}
+      </when>
+      <otherwise>
+        order by create_time desc
+      </otherwise>
+    </choose>
+    <if test="offset != null and limit != null">
+      limit #{offset}, #{limit}
+    </if>
+  </select>
+
+  <select id="count" resultType="int">
+    select count(*) from shigu_log
+    <where>
+      <if test="title != null and title != ''"> and title like concat('%',#{title},'%') </if>
+      <if test="flag != null and flag != ''"> and flag = #{flag} </if>
+      <if test="type != null and type != ''"> and type = #{type} </if>
+      <if test="status != null and status != ''"> and status = #{status} </if>
+    </where>
+  </select>
+</mapper>

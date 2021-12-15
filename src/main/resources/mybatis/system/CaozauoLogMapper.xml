@@ -1,0 +1,266 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.system.mapper.CaozauoLogMapper">
+  <resultMap id="BaseResultMap" type="com.system.domain.CaozauoLog">
+    <constructor>
+      <idArg column="id" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="title" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="flag" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="type" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="status" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="create_time" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+      <arg column="shebei_id" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="start_time" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+      <arg column="end_time" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+      <arg column="user_id" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="user_name" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="bumen_id" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="bumen_name" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="remark" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="results" javaType="java.lang.String" jdbcType="VARCHAR" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, title, flag, type, status, create_time, shebei_id, start_time, end_time, user_id,
+    user_name, bumen_id, bumen_name, remark, results
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from caozauo_log
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from caozauo_log
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.system.domain.CaozauoLog">
+    insert into caozauo_log (id, title, flag,
+      type, status, create_time,
+      shebei_id, start_time, end_time,
+      user_id, user_name, bumen_id,
+      bumen_name, remark, results
+      )
+    values (#{id,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, #{flag,jdbcType=VARCHAR},
+      #{type,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP},
+      #{shebeiId,jdbcType=VARCHAR}, #{startTime,jdbcType=TIMESTAMP}, #{endTime,jdbcType=TIMESTAMP},
+      #{userId,jdbcType=INTEGER}, #{userName,jdbcType=VARCHAR}, #{bumenId,jdbcType=INTEGER},
+      #{bumenName,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, #{results,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.system.domain.CaozauoLog">
+    insert into caozauo_log
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="title != null">
+        title,
+      </if>
+      <if test="flag != null">
+        flag,
+      </if>
+      <if test="type != null">
+        type,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="shebeiId != null">
+        shebei_id,
+      </if>
+      <if test="startTime != null">
+        start_time,
+      </if>
+      <if test="endTime != null">
+        end_time,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="userName != null">
+        user_name,
+      </if>
+      <if test="bumenId != null">
+        bumen_id,
+      </if>
+      <if test="bumenName != null">
+        bumen_name,
+      </if>
+      <if test="remark != null">
+        remark,
+      </if>
+      <if test="results != null">
+        results,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="title != null">
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="flag != null">
+        #{flag,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="shebeiId != null">
+        #{shebeiId,jdbcType=VARCHAR},
+      </if>
+      <if test="startTime != null">
+        #{startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endTime != null">
+        #{endTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="userName != null">
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="bumenId != null">
+        #{bumenId,jdbcType=INTEGER},
+      </if>
+      <if test="bumenName != null">
+        #{bumenName,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="results != null">
+        #{results,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.system.domain.CaozauoLog">
+    update caozauo_log
+    <set>
+      <if test="title != null">
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="flag != null">
+        flag = #{flag,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        type = #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="shebeiId != null">
+        shebei_id = #{shebeiId,jdbcType=VARCHAR},
+      </if>
+      <if test="startTime != null">
+        start_time = #{startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endTime != null">
+        end_time = #{endTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="userName != null">
+        user_name = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="bumenId != null">
+        bumen_id = #{bumenId,jdbcType=INTEGER},
+      </if>
+      <if test="bumenName != null">
+        bumen_name = #{bumenName,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="results != null">
+        results = #{results,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.system.domain.CaozauoLog">
+    update caozauo_log
+    set title = #{title,jdbcType=VARCHAR},
+      flag = #{flag,jdbcType=VARCHAR},
+      type = #{type,jdbcType=VARCHAR},
+      status = #{status,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      shebei_id = #{shebeiId,jdbcType=VARCHAR},
+      start_time = #{startTime,jdbcType=TIMESTAMP},
+      end_time = #{endTime,jdbcType=TIMESTAMP},
+      user_id = #{userId,jdbcType=INTEGER},
+      user_name = #{userName,jdbcType=VARCHAR},
+      bumen_id = #{bumenId,jdbcType=INTEGER},
+      bumen_name = #{bumenName,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      results = #{results,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <select id="list" resultType="com.system.domain.CaozauoLog">
+    SELECT
+      id,
+      title,
+      flag,
+      type,
+      status,
+      create_time,
+      shebei_id,
+      start_time,
+      end_time,
+      user_id,
+      user_name,
+      bumen_id,
+      bumen_name,
+      remark,
+      results
+    FROM
+    caozauo_log
+    <where>
+      <if test="title != null and title != ''"> and user_name like concat('%',#{title},'%') </if>
+      <if test="userId != null and userId != ''"> and user_id = #{userId} </if>
+      <if test="userName != null and userName != ''"> and user_name = #{userName} </if>
+      <if test="flag != null and flag != ''"> and flag = #{flag} </if>
+      <if test="type != null and type != ''"> and type = #{type} </if>
+      <if test="status != null and status != ''"> and status = #{status} </if>
+    </where>
+    <choose>
+      <when test="sort != null and sort.trim() != ''">
+        order by ${sort} ${order}
+      </when>
+      <otherwise>
+        order by create_time desc
+      </otherwise>
+    </choose>
+    <if test="offset != null and limit != null">
+      limit #{offset}, #{limit}
+    </if>
+  </select>
+
+  <select id="count" resultType="int">
+    select count(*) from caozauo_log
+    <where>
+      <if test="title != null and title != ''"> and user_name like concat('%',#{title},'%') </if>
+      <if test="userId != null and userId != ''"> and user_id = #{userId} </if>
+      <if test="userName != null and userName != ''"> and user_name = #{userName} </if>
+      <if test="flag != null and flag != ''"> and flag = #{flag} </if>
+      <if test="type != null and type != ''"> and type = #{type} </if>
+      <if test="status != null and status != ''"> and status = #{status} </if>
+    </where>
+  </select>
+</mapper>

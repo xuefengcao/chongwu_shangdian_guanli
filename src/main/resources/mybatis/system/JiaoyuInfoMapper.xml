@@ -1,0 +1,295 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.system.mapper.JiaoyuInfoMapper">
+  <resultMap id="BaseResultMap" type="com.system.domain.JiaoyuInfo">
+    <constructor>
+      <idArg column="id" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="jiaoyu_type" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="jiaoyu_type_id" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="remark" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="bumen" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="bumen_id" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="user_id" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="user_name" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="flag" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="type" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="status" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="create_time" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+      <arg column="jaoyu_time" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, jiaoyu_type, jiaoyu_type_id, remark, bumen, bumen_id, user_id, user_name, flag, 
+    type, status, create_time, jaoyu_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultType="com.system.domain.JiaoyuInfo">
+    SELECT
+      id,
+      jiaoyu_type_id,
+    ( SELECT a.NAME FROM type_info a WHERE a.id = c.jiaoyu_type_id ) jiaoyu_type,
+    remark,
+      bumen,
+      bumen_id,
+      user_id,
+    ( SELECT a.NAME FROM sys_user a WHERE a.user_id = c.user_id ) user_name,
+      flag,
+      type,
+      STATUS,
+      create_time,
+      jaoyu_time,
+    DATE_FORMAT( jaoyu_time, "%Y-%m-%d %H:%i:%s" ) startTimeStr
+    from jiaoyu_info c
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from jiaoyu_info
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.system.domain.JiaoyuInfo">
+    insert into jiaoyu_info (id, jiaoyu_type, jiaoyu_type_id, 
+      remark, bumen, bumen_id, 
+      user_id, user_name, flag, 
+      type, status, create_time, 
+      jaoyu_time)
+    values (#{id,jdbcType=INTEGER}, #{jiaoyuType,jdbcType=VARCHAR}, #{jiaoyuTypeId,jdbcType=INTEGER}, 
+      #{remark,jdbcType=VARCHAR}, #{bumen,jdbcType=VARCHAR}, #{bumenId,jdbcType=INTEGER}, 
+      #{userId,jdbcType=INTEGER}, #{userName,jdbcType=VARCHAR}, #{flag,jdbcType=VARCHAR}, 
+      #{type,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{jaoyuTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.system.domain.JiaoyuInfo">
+    insert into jiaoyu_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="jiaoyuType != null">
+        jiaoyu_type,
+      </if>
+      <if test="jiaoyuTypeId != null">
+        jiaoyu_type_id,
+      </if>
+      <if test="remark != null">
+        remark,
+      </if>
+      <if test="bumen != null">
+        bumen,
+      </if>
+      <if test="bumenId != null">
+        bumen_id,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="userName != null">
+        user_name,
+      </if>
+      <if test="flag != null">
+        flag,
+      </if>
+      <if test="type != null">
+        type,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="jaoyuTime != null">
+        jaoyu_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="jiaoyuType != null">
+        #{jiaoyuType,jdbcType=VARCHAR},
+      </if>
+      <if test="jiaoyuTypeId != null">
+        #{jiaoyuTypeId,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="bumen != null">
+        #{bumen,jdbcType=VARCHAR},
+      </if>
+      <if test="bumenId != null">
+        #{bumenId,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="userName != null">
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="flag != null">
+        #{flag,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="jaoyuTime != null">
+        #{jaoyuTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.system.domain.JiaoyuInfo">
+    update jiaoyu_info
+    <set>
+      <if test="jiaoyuType != null">
+        jiaoyu_type = #{jiaoyuType,jdbcType=VARCHAR},
+      </if>
+      <if test="jiaoyuTypeId != null">
+        jiaoyu_type_id = #{jiaoyuTypeId,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="bumen != null">
+        bumen = #{bumen,jdbcType=VARCHAR},
+      </if>
+      <if test="bumenId != null">
+        bumen_id = #{bumenId,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="userName != null">
+        user_name = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="flag != null">
+        flag = #{flag,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        type = #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="jaoyuTime != null">
+        jaoyu_time = #{jaoyuTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.system.domain.JiaoyuInfo">
+    update jiaoyu_info
+    set jiaoyu_type = #{jiaoyuType,jdbcType=VARCHAR},
+      jiaoyu_type_id = #{jiaoyuTypeId,jdbcType=INTEGER},
+      remark = #{remark,jdbcType=VARCHAR},
+      bumen = #{bumen,jdbcType=VARCHAR},
+      bumen_id = #{bumenId,jdbcType=INTEGER},
+      user_id = #{userId,jdbcType=INTEGER},
+      user_name = #{userName,jdbcType=VARCHAR},
+      flag = #{flag,jdbcType=VARCHAR},
+      type = #{type,jdbcType=VARCHAR},
+      status = #{status,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      jaoyu_time = #{jaoyuTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <select id="list" resultType="com.system.domain.JiaoyuInfo">
+    SELECT
+      id,
+      jiaoyu_type_id,
+    ( SELECT a.NAME FROM type_info a WHERE a.id = c.jiaoyu_type_id ) jiaoyu_type,
+    remark,
+      bumen,
+      bumen_id,
+      user_id,
+    ( SELECT a.NAME FROM sys_user a WHERE a.user_id = c.user_id ) user_name,
+      flag,
+      type,
+      STATUS,
+      create_time,
+      jaoyu_time,
+    DATE_FORMAT( jaoyu_time, "%Y-%m-%d %H:%i:%s" ) startTimeStr
+    FROM
+    jiaoyu_info c
+    <where>
+
+      <if test="remark != null and remark != ''"> and remark like concat('%',#{remark},'%') </if>
+      <if test="flag != null and flag != ''"> and flag = #{flag} </if>
+      <if test="type != null and type != ''"> and type = #{type} </if>
+      <if test="status != null and status != ''"> and status = #{status} </if>
+    </where>
+    <choose>
+      <when test="sort != null and sort.trim() != ''">
+        order by ${sort} ${order}
+      </when>
+      <otherwise>
+        order by create_time desc
+      </otherwise>
+    </choose>
+    <if test="offset != null and limit != null">
+      limit #{offset}, #{limit}
+    </if>
+  </select>
+
+  <select id="fenxilist" resultType="com.system.domain.JiaoyuInfo">
+    SELECT
+    t1.id,
+    t1.jiaoyu_type_id,
+    t1.remark,
+    t1.bumen,
+    t1.bumen_id,
+    t1.user_id,
+    ( SELECT a.NAME FROM sys_user a WHERE a.user_id = t1.user_id ) user_name,
+    t1.flag,
+    t1.type,
+    t1.STATUS,
+    t1.create_time,
+    t1.jaoyu_time,
+    t2.title,
+    t2.peixun_type_id,
+    ( SELECT a.NAME FROM type_info a WHERE a.id = t2.peixun_type_id ) jiaoyu_type,
+    DATE_FORMAT( peixun_time, "%Y-%m-%d %H:%i:%s" ) startTimeStr
+    FROM
+    jiaoyu_info t1
+    LEFT JOIN jiaoyu_peixun_info t2 ON t1.jiaoyu_type_id = t2.id
+    <where>
+      <if test="remark != null and remark != ''"> and t1.remark like concat('%',#{remark},'%') </if>
+      <if test="flag != null and flag != ''"> and t1.flag = #{flag} </if>
+      <if test="type != null and type != ''"> and t1.type = #{type} </if>
+      <if test="status != null and status != ''"> and t1.status = #{status} </if>
+      <if test="title != null and title != ''"> and t2.title = #{title} </if>
+
+    </where>
+    <choose>
+      <when test="sort != null and sort.trim() != ''">
+        order by ${sort} ${order}
+      </when>
+      <otherwise>
+        order by create_time desc
+      </otherwise>
+    </choose>
+    <if test="offset != null and limit != null">
+      limit #{offset}, #{limit}
+    </if>
+  </select>
+
+
+  <select id="count" resultType="int">
+    select count(*) from jiaoyu_info
+    <where>
+      <if test="remark != null and remark != ''"> and remark like concat('%',#{remark},'%') </if>
+
+      <if test="flag != null and flag != ''"> and flag = #{flag} </if>
+      <if test="type != null and type != ''"> and type = #{type} </if>
+      <if test="status != null and status != ''"> and status = #{status} </if>
+    </where>
+  </select>
+</mapper>

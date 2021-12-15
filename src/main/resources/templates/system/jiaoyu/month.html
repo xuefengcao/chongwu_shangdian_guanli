@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="zh_CN" xmlns:th="http://www.thymeleaf.org"
+	xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<meta charset="utf-8">
+<head th:include="include :: header"></head>
+<body class="gray-bg">
+	<div class="wrapper wrapper-content ">
+		<div class="row">
+			<div class="col-sm-12">
+				<div class="ibox">
+					<div class="ibox-body">
+						<div class="fixed-table-toolbar">
+
+
+
+						</div>
+						<table id="exampleTable" data-mobile-responsive="true">
+
+							<div class="box box-primary">
+								<div class="box-header with-border">
+									<h3 class="box-title">上月安全教育培训量统计</h3>
+								</div>
+
+								<div class="box-body" style="height: 800px;">
+
+									<!-- 数据表格 -->
+									<div id="container" style="height: 100%"></div>
+									<!-- 数据表格 /-->
+
+								</div>
+
+
+							</div>
+
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!--shiro控制bootstraptable行内按钮看见性 来自bootdo的创新方案 -->
+		<div>
+			<script type="text/javascript">
+				var s_edit_h = 'hidden';
+				var s_remove_h = 'hidden';
+				var s_resetPwd_h = 'hidden';
+			</script>
+		</div>
+		<div shiro:hasPermission="sys:user:edit">
+			<script type="text/javascript">
+				s_edit_h = '';
+			</script>
+		</div>
+		<div shiro:hasPermission="sys:user:remove">
+			<script type="text/javascript">
+				var s_remove_h = '';
+			</script>
+		</div>
+		<div shiro:hasPermission="sys:user:resetPwd">
+			<script type="text/javascript">
+				var s_resetPwd_h = '';
+			</script>
+		</div>
+	</div>
+	<div th:include="include :: footer"></div>
+	<script type="text/javascript" src="/js/plugins/echarts/echarts.min.js"></script>
+	<script type="text/javascript">
+        var dom = document.getElementById("container");
+        var myChart = echarts.init(dom);
+        var app = {};
+        /*var list=$('#idealist').val();
+
+        alert(list);*/
+        var option;
+
+
+
+        option = {
+            title: {
+                text: '上月安全教育培训量统计'
+            },
+            tooltip: {
+                trigger: 'axis'
+            },
+            legend: {
+                data: ['上月安全教育培训量统计']
+            },
+            grid: {
+                left: '3%',
+                right: '4%',
+                bottom: '3%',
+                containLabel: true
+            },
+            toolbox: {
+                feature: {
+                    saveAsImage: {}
+                }
+            },
+            xAxis: {
+                type: 'category',
+                boundaryGap: false,
+                data: []
+            },
+            yAxis: {
+                type: 'value'
+            },
+            series: [
+                {
+                    name: '设备数量',
+                    type: 'line',
+                    stack: '总量',
+                    data: []
+                }
+            ]
+        };
+        getMonthGoods();
+        if (option && typeof option === 'object') {
+            myChart.setOption(option);
+        }
+        function getMonthGoods() {
+            $.get('/sys/jiaoyupeixun/ajaxMonthJiaoyuPeixun').done(function(data) {
+                // 填入数据
+
+                myChart.setOption({
+                    xAxis: {
+                        type: 'category',
+                        boundaryGap: false,
+                        data: data.createTimeStr
+                    },
+                    series: [
+                        {
+                            name: '培训数量',
+                            type: 'line',
+                            stack: '总量',
+                            data: data.num
+                        }
+                    ]
+                });
+                myChart.hideLoading();
+            });
+        }
+
+	</script>
+</body>
+</body>
+</html>

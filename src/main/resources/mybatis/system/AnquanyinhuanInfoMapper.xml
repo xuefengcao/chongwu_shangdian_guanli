@@ -1,0 +1,314 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.system.mapper.AnquanyinhuanInfoMapper">
+  <resultMap id="BaseResultMap" type="com.system.domain.AnquanyinhuanInfo">
+    <constructor>
+      <idArg column="id" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="user_id" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="user_name" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="jiancha_start_time" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+      <arg column="jiancha_end_time" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+      <arg column="if_yinhuan" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="yinhuan_type_id" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="yinhuan_type" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="yinhuan_remark" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="yinhuan_yanzhong" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="yinhuan_yanzhong_id" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="create_time" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+      <arg column="flag" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="type" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="remark" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="status" javaType="java.lang.String" jdbcType="VARCHAR" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, user_id, user_name, jiancha_start_time, jiancha_end_time, if_yinhuan, yinhuan_type_id,
+    yinhuan_type, yinhuan_remark, yinhuan_yanzhong, yinhuan_yanzhong_id, create_time,
+    flag, type, remark, status
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultType="com.system.domain.AnquanyinhuanInfo">
+    SELECT
+      id,
+      user_id,
+    ( SELECT a.NAME FROM sys_user a WHERE a.user_id = c.user_id ) user_name,
+      jiancha_start_time,
+    DATE_FORMAT( jiancha_start_time, "%Y-%m-%d %H:%i:%s" ) startTimeStr,
+      jiancha_end_time,
+    DATE_FORMAT( jiancha_end_time, "%Y-%m-%d %H:%i:%s" ) endTimeStr,
+      if_yinhuan,
+      yinhuan_type_id,
+    ( SELECT a.NAME FROM type_info a WHERE a.id = c.yinhuan_type_id ) yinhuan_type,
+    yinhuan_remark,
+      yinhuan_yanzhong,
+      yinhuan_yanzhong_id,
+      create_time,
+      flag,
+      type,
+      remark,
+      status
+    from anquanyinhuan_info c
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from anquanyinhuan_info
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.system.domain.AnquanyinhuanInfo">
+    insert into anquanyinhuan_info (id, user_id, user_name,
+      jiancha_start_time, jiancha_end_time, if_yinhuan,
+      yinhuan_type_id, yinhuan_type, yinhuan_remark,
+      yinhuan_yanzhong, yinhuan_yanzhong_id, create_time,
+      flag, type, remark,
+      status)
+    values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{userName,jdbcType=VARCHAR},
+      #{jianchaStartTime,jdbcType=TIMESTAMP}, #{jianchaEndTime,jdbcType=TIMESTAMP}, #{ifYinhuan,jdbcType=VARCHAR},
+      #{yinhuanTypeId,jdbcType=INTEGER}, #{yinhuanType,jdbcType=VARCHAR}, #{yinhuanRemark,jdbcType=VARCHAR},
+      #{yinhuanYanzhong,jdbcType=VARCHAR}, #{yinhuanYanzhongId,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP},
+      #{flag,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR},
+      #{status,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.system.domain.AnquanyinhuanInfo">
+    insert into anquanyinhuan_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="userName != null">
+        user_name,
+      </if>
+      <if test="jianchaStartTime != null">
+        jiancha_start_time,
+      </if>
+      <if test="jianchaEndTime != null">
+        jiancha_end_time,
+      </if>
+      <if test="ifYinhuan != null">
+        if_yinhuan,
+      </if>
+      <if test="yinhuanTypeId != null">
+        yinhuan_type_id,
+      </if>
+      <if test="yinhuanType != null">
+        yinhuan_type,
+      </if>
+      <if test="yinhuanRemark != null">
+        yinhuan_remark,
+      </if>
+      <if test="yinhuanYanzhong != null">
+        yinhuan_yanzhong,
+      </if>
+      <if test="yinhuanYanzhongId != null">
+        yinhuan_yanzhong_id,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="flag != null">
+        flag,
+      </if>
+      <if test="type != null">
+        type,
+      </if>
+      <if test="remark != null">
+        remark,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="userName != null">
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="jianchaStartTime != null">
+        #{jianchaStartTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="jianchaEndTime != null">
+        #{jianchaEndTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="ifYinhuan != null">
+        #{ifYinhuan,jdbcType=VARCHAR},
+      </if>
+      <if test="yinhuanTypeId != null">
+        #{yinhuanTypeId,jdbcType=INTEGER},
+      </if>
+      <if test="yinhuanType != null">
+        #{yinhuanType,jdbcType=VARCHAR},
+      </if>
+      <if test="yinhuanRemark != null">
+        #{yinhuanRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="yinhuanYanzhong != null">
+        #{yinhuanYanzhong,jdbcType=VARCHAR},
+      </if>
+      <if test="yinhuanYanzhongId != null">
+        #{yinhuanYanzhongId,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="flag != null">
+        #{flag,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.system.domain.AnquanyinhuanInfo">
+    update anquanyinhuan_info
+    <set>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="userName != null">
+        user_name = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="jianchaStartTime != null">
+        jiancha_start_time = #{jianchaStartTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="jianchaEndTime != null">
+        jiancha_end_time = #{jianchaEndTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="ifYinhuan != null">
+        if_yinhuan = #{ifYinhuan,jdbcType=VARCHAR},
+      </if>
+      <if test="yinhuanTypeId != null">
+        yinhuan_type_id = #{yinhuanTypeId,jdbcType=INTEGER},
+      </if>
+      <if test="yinhuanType != null">
+        yinhuan_type = #{yinhuanType,jdbcType=VARCHAR},
+      </if>
+      <if test="yinhuanRemark != null">
+        yinhuan_remark = #{yinhuanRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="yinhuanYanzhong != null">
+        yinhuan_yanzhong = #{yinhuanYanzhong,jdbcType=VARCHAR},
+      </if>
+      <if test="yinhuanYanzhongId != null">
+        yinhuan_yanzhong_id = #{yinhuanYanzhongId,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="flag != null">
+        flag = #{flag,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        type = #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.system.domain.AnquanyinhuanInfo">
+    update anquanyinhuan_info
+    set user_id = #{userId,jdbcType=INTEGER},
+      user_name = #{userName,jdbcType=VARCHAR},
+      jiancha_start_time = #{jianchaStartTime,jdbcType=TIMESTAMP},
+      jiancha_end_time = #{jianchaEndTime,jdbcType=TIMESTAMP},
+      if_yinhuan = #{ifYinhuan,jdbcType=VARCHAR},
+      yinhuan_type_id = #{yinhuanTypeId,jdbcType=INTEGER},
+      yinhuan_type = #{yinhuanType,jdbcType=VARCHAR},
+      yinhuan_remark = #{yinhuanRemark,jdbcType=VARCHAR},
+      yinhuan_yanzhong = #{yinhuanYanzhong,jdbcType=VARCHAR},
+      yinhuan_yanzhong_id = #{yinhuanYanzhongId,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      flag = #{flag,jdbcType=VARCHAR},
+      type = #{type,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      status = #{status,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+
+  <select id="list" resultType="com.system.domain.AnquanyinhuanInfo">
+    SELECT
+      id,
+      user_id,
+    ( SELECT a.NAME FROM sys_user a WHERE a.user_id = c.user_id ) user_name,
+      jiancha_start_time,
+    DATE_FORMAT( jiancha_start_time, "%Y-%m-%d %H:%i:%s" ) startTimeStr,
+      jiancha_end_time,
+    DATE_FORMAT( jiancha_end_time, "%Y-%m-%d %H:%i:%s" ) endTimeStr,
+      if_yinhuan,
+      yinhuan_type_id,
+    ( SELECT a.NAME FROM type_info a WHERE a.id = c.yinhuan_type_id ) yinhuan_type,
+    yinhuan_remark,
+      yinhuan_yanzhong,
+      yinhuan_yanzhong_id,
+      create_time,
+      flag,
+      type,
+      remark,
+      status
+    FROM
+    anquanyinhuan_info c
+    <where>
+      <if test="userId != null and userId != ''"> and user_id like concat('%',#{userId},'%') </if>
+      <if test="userName != null and userName != ''"> and user_name = #{userName} </if>
+      <if test="flag != null and flag != ''"> and flag = #{flag} </if>
+      <if test="type != null and type != ''"> and type = #{type} </if>
+      <if test="status != null and status != ''"> and status = #{status} </if>
+
+    </where>
+    <choose>
+      <when test="sort != null and sort.trim() != ''">
+        order by ${sort} ${order}
+      </when>
+      <otherwise>
+        order by create_time desc
+      </otherwise>
+    </choose>
+    <if test="offset != null and limit != null">
+      limit #{offset}, #{limit}
+    </if>
+  </select>
+
+  <select id="count" resultType="int">
+    select count(*) from anquanyinhuan_info
+    <where>
+      <if test="userId != null and userId != ''"> and user_id = #{userId} </if>
+      <if test="userName != null and userName != ''"> and user_name = #{userName} </if>
+      <if test="flag != null and flag != ''"> and flag = #{flag} </if>
+      <if test="type != null and type != ''"> and type = #{type} </if>
+      <if test="status != null and status != ''"> and status = #{status} </if>
+    </where>
+  </select>
+
+  <select id="findTypeAnquanyinhuan" resultType="com.system.vo.PubOutVo1" >
+    SELECT
+      count( t1.yinhuan_type_id) value,
+      t2.name name
+      FROM
+      anquanyinhuan_info t1
+      LEFT JOIN type_info t2 ON t1.yinhuan_type_id = t2.id
+      WHERE
+      1 = 1 and t1.`status`='1'
+      GROUP BY
+      t1.yinhuan_type_id;
+
+  </select>
+
+
+</mapper>

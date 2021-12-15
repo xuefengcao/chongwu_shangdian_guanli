@@ -1,0 +1,305 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.system.mapper.YuangongPeixunInfoMapper">
+  <resultMap id="BaseResultMap" type="com.system.domain.YuangongPeixunInfo">
+    <constructor>
+      <idArg column="id" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="title" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="peixun_type_id" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="peixun_type" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="peixun_time" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+      <arg column="user_id" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="user_name" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="bumen_id" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="bumen" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="flag" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="status" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="type" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="chengji" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="remark" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="peixun_num" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="details" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="create_time" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, title, peixun_type_id, peixun_type, peixun_time, user_id, user_name, bumen_id, 
+    bumen, flag, status, type, chengji, remark, peixun_num, details, create_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultType="com.system.domain.YuangongPeixunInfo">
+    SELECT
+      id,
+      title,
+    peixun_type_id,
+    ( SELECT a.NAME FROM type_info a WHERE a.id = c.peixun_type_id ) peixun_type,
+      peixun_time,
+      DATE_FORMAT( peixun_time, "%Y-%m-%d %H:%i:%s" ) startTimeStr,
+      user_id,
+    ( SELECT a.NAME FROM sys_user a WHERE a.user_id = c.user_id ) user_name,
+      bumen_id,
+      bumen,
+      flag,
+      STATUS,
+      type,
+      chengji,
+      remark,
+      peixun_num,
+      details,
+      create_time
+    FROM
+    yuangong_peixun_info c
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from yuangong_peixun_info
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.system.domain.YuangongPeixunInfo">
+    insert into yuangong_peixun_info (id, title, peixun_type_id, 
+      peixun_type, peixun_time, user_id, 
+      user_name, bumen_id, bumen, 
+      flag, status, type, 
+      chengji, remark, peixun_num, 
+      details, create_time)
+    values (#{id,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, #{peixunTypeId,jdbcType=INTEGER}, 
+      #{peixunType,jdbcType=VARCHAR}, #{peixunTime,jdbcType=TIMESTAMP}, #{userId,jdbcType=INTEGER}, 
+      #{userName,jdbcType=VARCHAR}, #{bumenId,jdbcType=INTEGER}, #{bumen,jdbcType=VARCHAR}, 
+      #{flag,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR}, 
+      #{chengji,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, #{peixunNum,jdbcType=INTEGER}, 
+      #{details,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.system.domain.YuangongPeixunInfo">
+    insert into yuangong_peixun_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="title != null">
+        title,
+      </if>
+      <if test="peixunTypeId != null">
+        peixun_type_id,
+      </if>
+      <if test="peixunType != null">
+        peixun_type,
+      </if>
+      <if test="peixunTime != null">
+        peixun_time,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="userName != null">
+        user_name,
+      </if>
+      <if test="bumenId != null">
+        bumen_id,
+      </if>
+      <if test="bumen != null">
+        bumen,
+      </if>
+      <if test="flag != null">
+        flag,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="type != null">
+        type,
+      </if>
+      <if test="chengji != null">
+        chengji,
+      </if>
+      <if test="remark != null">
+        remark,
+      </if>
+      <if test="peixunNum != null">
+        peixun_num,
+      </if>
+      <if test="details != null">
+        details,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="title != null">
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="peixunTypeId != null">
+        #{peixunTypeId,jdbcType=INTEGER},
+      </if>
+      <if test="peixunType != null">
+        #{peixunType,jdbcType=VARCHAR},
+      </if>
+      <if test="peixunTime != null">
+        #{peixunTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="userName != null">
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="bumenId != null">
+        #{bumenId,jdbcType=INTEGER},
+      </if>
+      <if test="bumen != null">
+        #{bumen,jdbcType=VARCHAR},
+      </if>
+      <if test="flag != null">
+        #{flag,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="chengji != null">
+        #{chengji,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="peixunNum != null">
+        #{peixunNum,jdbcType=INTEGER},
+      </if>
+      <if test="details != null">
+        #{details,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.system.domain.YuangongPeixunInfo">
+    update yuangong_peixun_info
+    <set>
+      <if test="title != null">
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="peixunTypeId != null">
+        peixun_type_id = #{peixunTypeId,jdbcType=INTEGER},
+      </if>
+      <if test="peixunType != null">
+        peixun_type = #{peixunType,jdbcType=VARCHAR},
+      </if>
+      <if test="peixunTime != null">
+        peixun_time = #{peixunTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="userName != null">
+        user_name = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="bumenId != null">
+        bumen_id = #{bumenId,jdbcType=INTEGER},
+      </if>
+      <if test="bumen != null">
+        bumen = #{bumen,jdbcType=VARCHAR},
+      </if>
+      <if test="flag != null">
+        flag = #{flag,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        type = #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="chengji != null">
+        chengji = #{chengji,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="peixunNum != null">
+        peixun_num = #{peixunNum,jdbcType=INTEGER},
+      </if>
+      <if test="details != null">
+        details = #{details,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.system.domain.YuangongPeixunInfo">
+    update yuangong_peixun_info
+    set title = #{title,jdbcType=VARCHAR},
+      peixun_type_id = #{peixunTypeId,jdbcType=INTEGER},
+      peixun_type = #{peixunType,jdbcType=VARCHAR},
+      peixun_time = #{peixunTime,jdbcType=TIMESTAMP},
+      user_id = #{userId,jdbcType=INTEGER},
+      user_name = #{userName,jdbcType=VARCHAR},
+      bumen_id = #{bumenId,jdbcType=INTEGER},
+      bumen = #{bumen,jdbcType=VARCHAR},
+      flag = #{flag,jdbcType=VARCHAR},
+      status = #{status,jdbcType=VARCHAR},
+      type = #{type,jdbcType=VARCHAR},
+      chengji = #{chengji,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      peixun_num = #{peixunNum,jdbcType=INTEGER},
+      details = #{details,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <select id="list" resultType="com.system.domain.YuangongPeixunInfo">
+    SELECT
+      id,
+      title,
+    peixun_type_id,
+    ( SELECT a.NAME FROM type_info a WHERE a.id = c.peixun_type_id ) peixun_type,
+      peixun_time,
+      DATE_FORMAT( peixun_time, "%Y-%m-%d %H:%i:%s" ) startTimeStr,
+      user_id,
+    ( SELECT a.NAME FROM sys_user a WHERE a.user_id = c.user_id ) user_name,
+      bumen_id,
+      bumen,
+      flag,
+      STATUS,
+      type,
+      chengji,
+      remark,
+      peixun_num,
+      details,
+      create_time
+    FROM
+    yuangong_peixun_info c
+    <where>
+      <if test="title != null and title != ''"> and title like concat('%',#{title},'%') </if>
+      <if test="flag != null and flag != ''"> and flag = #{flag} </if>
+      <if test="type != null and type != ''"> and type = #{type} </if>
+      <if test="status != null and status != ''"> and status = #{status} </if>
+    </where>
+    <choose>
+      <when test="sort != null and sort.trim() != ''">
+        order by ${sort} ${order}
+      </when>
+      <otherwise>
+        order by create_time desc
+      </otherwise>
+    </choose>
+    <if test="offset != null and limit != null">
+      limit #{offset}, #{limit}
+    </if>
+  </select>
+
+  <select id="count" resultType="int">
+    select count(*) from yuangong_peixun_info
+    <where>
+      <if test="name != null and name != ''"> and name like concat('%',#{name},'%') </if>
+      <if test="flag != null and flag != ''"> and flag = #{flag} </if>
+      <if test="type != null and type != ''"> and type = #{type} </if>
+      <if test="status != null and status != ''"> and status = #{status} </if>
+    </where>
+  </select>
+</mapper>
